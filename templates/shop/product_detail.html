@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class='row'>
+  <div class='col-md-6'>
+    {% if product.image %}
+      <img src='{{ product.image.url }}' class='img-fluid rounded' alt='{{ product.name }}'>
+    {% else %}
+      <div class='bg-light d-flex align-items-center justify-content-center' style='height:400px;'>
+        <span class='text-muted'>No image</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class='col-md-6'>
+    <h2>{{ product.name }}</h2>
+    <p class='text-muted'>Category: {{ product.category.name }}</p>
+
+    {% if product.tags.exists %}
+      <div class='mb-3'>
+        {% for tag in product.tags.all %}
+          <span class='badge bg-secondary'>{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <p class='lead'>{{ product.description|linebreaks }}</p>
+
+    <div class='my-4'>
+      <h3 class='text-success'>${{ product.price }}</h3>
+      {% if product.stock > 0 %}
+        <p class='text-success'>In stock: {{ product.stock }} available</p>
+      {% else %}
+        <p class='text-danger'>Out of stock</p>
+      {% endif %}
+    </div>
+
+    {% if product.stock > 0 %}
+      <form method='post' action='{% url "cart:add" product.pk %}'>
+        {% csrf_token %}
+        <div class='row mb-3'>
+          <div class='col-auto'>
+            <label for='quantity' class='form-label'>Quantity:</label>
+          </div>
+          <div class='col-auto'>
+            <input type='number' class='form-control' id='quantity' 
+                   name='quantity' value='1' min='1' max='{{ product.stock }}' 
+                   style='width:80px;'>
+          </div>
+        </div>
+        <button type='submit' class='btn btn-primary btn-lg'>
+          <i class='bi bi-cart-plus'></i> Add to Cart
+        </button>
+      </form>
+    {% endif %}
+
+    <div class='mt-4'>
+      <a href='{% url "shop:product_list" %}' class='btn btn-outline-secondary'>
+        ← Back to Shop
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+# Virtual environments - don't copy local venv
+venv/
+env/
+ENV/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Django stuff
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/
+
+# Environment variables - NEVER copy this to image
+.env
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker files themselves
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Documentation
+README.md
+docs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

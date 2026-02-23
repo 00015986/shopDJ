@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Shop{% endblock %}
+{% block content %}
+<div class='row'>
+  <div class='col-md-3'>
+    <h5>Categories</h5>
+    <ul class='list-group'>
+      <li class='list-group-item'><a href='{% url "shop:product_list" %}'>All</a></li>
+      {% for cat in categories %}
+        <li class='list-group-item'>
+          <a href='{% url "shop:product_list_by_category" cat.slug %}'>{{ cat.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class='col-md-9'>
+    <div class='row row-cols-1 row-cols-md-3 g-4'>
+      {% for product in products %}
+        <div class='col'>
+          <div class='card h-100'>
+            {% if product.image %}
+              <img src='{{ product.image.url }}' class='card-img-top' style='height:200px;object-fit:cover'>
+            {% endif %}
+            <div class='card-body'>
+              <h5 class='card-title'>
+                <a href='{% url "shop:product_detail" product.pk product.slug %}'>{{ product.name }}</a>
+              </h5>
+              <p class='card-text text-success fw-bold'>${{ product.price }}</p>
+              <form method='post' action='{% url "cart:add" product.pk %}'>
+                {% csrf_token %}
+                <input type='hidden' name='quantity' value='1'>
+                <button class='btn btn-dark btn-sm'>Add to Cart</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>No products found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

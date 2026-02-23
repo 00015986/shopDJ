@@ -1,0 +1,75 @@
+version: '3.8'
+
+# ══════════════════════════════════════════════════════════════
+# SERVICES
+# ══════════════════════════════════════════════════════════════
+services:
+
+  # ─── DATABASE SERVICE ────────────────────────────────────────
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shop_net
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── DJANGO WEB SERVICE ──────────────────────────────────────
+  web:
+    build: .
+    restart: unless-stopped
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - shop_net
+
+  # ─── NGINX WEB SERVER ─────────────────────────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - static_volume:/app/staticfiles:ro
+      - media_volume:/app/media:ro
+    depends_on:
+      - web
+    networks:
+      - shop_net
+
+
+# ══════════════════════════════════════════════════════════════
+# VOLUMES (Persistent Storage)
+# ══════════════════════════════════════════════════════════════
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+
+# ══════════════════════════════════════════════════════════════
+# NETWORKS
+# ══════════════════════════════════════════════════════════════
+networks:
+  shop_net:
+    driver: bridge
