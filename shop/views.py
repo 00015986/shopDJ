@@ -24,14 +24,14 @@ def product_list(request, category_slug=None):
 
 
 def product_detail(request, pk, slug):
-    """View a single product"""
+    """View one product"""
     product = get_object_or_404(Product, pk=pk, slug=slug, available=True)
     return render(request, 'shop/product_detail.html', {'product': product})
 
 
 @login_required
 def category_create(request):
-    """Create a new category (login required)"""
+    """Create a new category with login required"""
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
@@ -44,6 +44,6 @@ def category_create(request):
 
 
 def category_list(request):
-    """View all categories"""
+    """View all different categories"""
     categories = Category.objects.all()
     return render(request, 'shop/category_list.html', {'categories': categories})

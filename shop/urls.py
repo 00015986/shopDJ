@@ -3,6 +3,7 @@ from . import views
 
 app_name = 'shop'
 
+# URL patterns for the shop app
 urlpatterns = [
     path('', views.product_list, name='product_list'),
     path('category/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
