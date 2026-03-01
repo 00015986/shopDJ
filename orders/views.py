@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from .models import Order, OrderItem
 
+
 @login_required
 def order_create(request):                       # Page 4 — Checkout
     cart = Cart(request)
@@ -18,10 +19,12 @@ def order_create(request):                       # Page 4 — Checkout
         return redirect('orders:detail', pk=order.pk)
     return render(request, 'orders/order_create.html', {'cart': cart})
 
+
 @login_required
 def order_detail(request, pk):                   # Page 5 — Order confirmation
     order = Order.objects.get(pk=pk, user=request.user)
     return render(request, 'orders/order_detail.html', {'order': order})
+
 
 @login_required
 def order_history(request):                      # Page 6 — Order history
