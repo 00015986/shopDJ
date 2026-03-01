@@ -14,11 +14,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from decouple import config
 
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 SECRET_KEY = config('SECRET_KEY')
-DEBUG      = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost').split(',')
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,6 +39,7 @@ INSTALLED_APPS = [
     'orders',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -46,7 +51,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'config.urls'
+
 
 TEMPLATES = [{'BACKEND':'django.template.backends.django.DjangoTemplates',
     'DIRS': [BASE_DIR / 'templates'],
@@ -85,14 +92,18 @@ STATIC_URL  = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
 
 LOGIN_URL           = '/accounts/login/'
 LOGIN_REDIRECT_URL  = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
