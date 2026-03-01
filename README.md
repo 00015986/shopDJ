@@ -4,6 +4,7 @@ A full-stack e-commerce application built with Django 4.2, containerized with Do
 and deployed with automated CI/CD using GitHub Actions.
 
 **Live Project:** https://dscc-cw1-project-shopdj-00015986.uaenorth.cloudapp.azure.com/
+---
 **User:** Create your own user to test the platform
 ---
 
