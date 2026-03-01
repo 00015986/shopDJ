@@ -16,8 +16,7 @@ class CategoryForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['category', 'tags', 'name', 'slug', 'description', 
-                  'price', 'stock', 'image', 'available']
+        fields = ['category', 'tags', 'name', 'slug', 'description', 'price', 'stock', 'image', 'available']
         widgets = {
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
