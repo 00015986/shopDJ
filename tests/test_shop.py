@@ -45,9 +45,9 @@ def test_product_tags_many_to_many():
     )
     tag1 = Tag.objects.create(name='new')
     tag2 = Tag.objects.create(name='sale')
-    
+    #
     product.tags.add(tag1, tag2)
-    
+    #
     assert product.tags.count() == 2
     assert tag1 in product.tags.all()
     assert tag2 in product.tags.all()
@@ -70,11 +70,11 @@ def test_order_creation_with_items():
         price=3.00,
         category=category
     )
-    
+    #
     order = Order.objects.create(user=user, address='123 Main St')
     OrderItem.objects.create(order=order, product=product1, price=15.00, quantity=2)
     OrderItem.objects.create(order=order, product=product2, price=3.00, quantity=3)
-    
+    #
     assert order.get_total() == 39.00  # (15*2) + (3*3)
     assert order.items.count() == 2
 
@@ -97,7 +97,7 @@ def test_product_availability():
         category=category,
         available=False
     )
-    
+    #
     available_products = Product.objects.filter(available=True)
     assert available_products.count() == 1
     assert available_products.first().name == 'Shirt'
@@ -116,3 +116,4 @@ def test_checkout_requires_login(client):
     response = client.get('/orders/create/')
     assert response.status_code == 302  # Redirect
     assert '/accounts/login/' in response.url
+    
