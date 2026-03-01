@@ -3,20 +3,20 @@ from .models import Category, Tag, Product
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin): # CategoryAdmin model
+class CategoryAdmin(admin.ModelAdmin):   # CategoryAdmin model
     list_display = ['id', 'name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin): # TagAdmin model
+class TagAdmin(admin.ModelAdmin):   # TagAdmin model
     list_display = ['id', 'name']
     search_fields = ['name']
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin): # ProductAdmin model 
+class ProductAdmin(admin.ModelAdmin):  # ProductAdmin model 
     list_display = ['id', 'name', 'category', 'price', 'stock', 'available']
     list_filter = ['available', 'category']
     list_editable = ['price', 'stock', 'available']
