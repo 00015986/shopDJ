@@ -220,7 +220,14 @@ shopDJ/
 This is a student project for DSCC coursework. Not accepting external contributions.
 
 ---
+##  Working Website Screenshots
+<img width="1891" height="854" alt="image" src="https://github.com/user-attachments/assets/947bb352-3186-4325-a907-77f5e07597ba" />
+<img width="1900" height="675" alt="image" src="https://github.com/user-attachments/assets/661b03cc-2476-4ab9-bae0-86b8b364658a" />
+<img width="1895" height="518" alt="image" src="https://github.com/user-attachments/assets/164b902f-9ce3-4f70-8234-91b5352e72e8" />
+<img width="1904" height="467" alt="image" src="https://github.com/user-attachments/assets/a9fd601e-bfff-432f-a5b4-fb4d70d434f1" />
+<img width="1894" height="768" alt="image" src="https://github.com/user-attachments/assets/d786d1c2-f883-49cb-9c2e-25ba4f32077f" />
 
+---
 ##  License
 
 This project is for educational purposes only.
