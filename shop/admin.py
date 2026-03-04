@@ -8,7 +8,7 @@ class CategoryAdmin(admin.ModelAdmin):   # CategoryAdmin model
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
 
-
+# Updated: part of the code with current date.
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):   # TagAdmin model
     list_display = ['id', 'name']
